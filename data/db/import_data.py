@@ -5,7 +5,7 @@ from db_config import DATABASE_CONFIG
 
 
 engine = create_engine(f"postgresql+psycopg2://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['database']}")
-file_path = r'C:\Users\rafae\OneDrive\Desktop\projects\Client_Churn_analyzer\data\Telco-Customer-Churn.csv'
+file_path = r'C:\Users\rafae\OneDrive\Desktop\projects\Client_Churn_analyzer\data\raw\Telco-Customer-Churn.csv'
 df = pd.read_csv(file_path)
 
 df.columns = [col.lower() for col in df.columns] 
