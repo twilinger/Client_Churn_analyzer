@@ -14,18 +14,16 @@ class VectorDB:
         """Загружает ключевые данные из серверной БД"""
         query = """
             SELECT 
-                customer_id,
+                customerid,
                 contract || ' ' || paymentmethod || ' ' || 
                 CAST(monthlycharges AS TEXT) AS document_content
             FROM customers
             WHERE churn = 'Yes'
-            LIMIT 1000  # Для теста
+            LIMIT 1000
         """
         df = self.db.get_churn_data(query)
-        
-        # Добавляем в векторную БД
         self.collection.add(
-            ids=df["customer_id"].astype(str).tolist(),
+            ids=df["customerid"].astype(str).tolist(),
             documents=df["document_content"].tolist()
         )
     
@@ -39,3 +37,4 @@ class VectorDB:
             n_results=top_k
         )
         return results["documents"][0]
+    

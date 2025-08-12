@@ -14,6 +14,15 @@ class DBConnector:
             f"postgresql+psycopg2://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@"
             f"{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['database']}"
         )
+    def check_columns(self):
+        columns = pd.read_sql(
+        "SELECT column_name FROM information_schema.columns "
+        "WHERE table_name = 'customers'", 
+        self.engine
+    )
+        print("Столбцы таблицы customers:")
+        print(columns)
     
     def get_churn_data(self, query: str) -> pd.DataFrame:
         return pd.read_sql(query, self.engine)
+    
